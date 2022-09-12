@@ -2,6 +2,7 @@
   {{- $summary := cond .IsNamedParams (.Get "title") (.Get 0) -}}
   <summary>{{ $summary | .Page.RenderString }}</summary>
   <div class="markdown-inner">
-    {{ .Inner | .Page.RenderString }}
+    {{/* .Inner | .Page.RenderString */}}
+    {{- .Inner | .Page.RenderString -}}
   </div>
 </details>

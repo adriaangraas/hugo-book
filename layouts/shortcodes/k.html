@@ -6,8 +6,8 @@
 {{- .Page.Scratch.Set "katex" true -}}
 {{- end -}}
 
+{{/* cond (in .Params "display") "\\]" "\\)" */}}
+
 <span {{- with .Get "class" }} class="{{ . }}"{{ end }}>
-  {{ cond (in .Params "display") "\\[" "\\(" -}}
-  {{- trim .Inner "\n" -}}
-  {{- cond (in .Params "display") "\\]" "\\)" }}
+{{- cond (in .Params "display") "\\[" "\\(" -}}{{ trim .Inner "\n" }}{{- cond (in .Params "display") "\\]" "\\)" -}}
 </span>
