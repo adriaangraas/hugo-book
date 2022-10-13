@@ -2,7 +2,7 @@
 // Default options to use for rendering
 // https://katex.org/docs/options.html
 const defaultOptions = {
-    throwOnError: false,
+    throwOnError: true,
 };
 
 // Adriaan: I added this https://stackoverflow.com/questions/18749591/encode-html-entities-in-javascript
@@ -32,11 +32,11 @@ document.addEventListener("DOMContentLoaded", function() {
     inlineExp = /^(?<!\$)\$(([^\$]|\\\$)+)\$(?!\$)(?<!\\\$)/msu;
 
 
-
     // Find inline code
     for (let elem of document.querySelectorAll('code')) {
         // Handle code blocks specified with `class="language-{=latex}"`
-        if (elem.classList.contains(`language-{=latex}`)) {
+        if (elem.classList.contains(`language-{=latex}`) ||
+            elem.classList.contains(`language-latex`)) {
             // Handle case where <code> tag is contained in <pre>
             if (elem.parentNode.tagName === 'PRE') {
                 elem = elem.parentNode;
@@ -47,15 +47,12 @@ document.addEventListener("DOMContentLoaded", function() {
             let output = [];
             const matches = content.matchAll(blockExp);
             for (const match of matches) {
-		console.log(match[1]);
-                console.log(defaultOptions);
                 // Render the math expression to an HTML string
                 //let result = katex.renderToString(match[1], elem, {...defaultOptions, displayMode: true});
 
                 // Embed in <p> and <span> tags like `renderMathInElement` does
                 //result = "".concat('<p><span class="katex-display">', result, '</span></p>');
                 let result = "<div>$$" + match[1] + "$$</div>";
-                console.log(result);
                 output.push(result);
             }
 

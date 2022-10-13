@@ -54,20 +54,24 @@ https://github.com/alex-shpak/hugo-book
   {{- end -}}
 {{- end -}}
 
-<!-- https://rl.ai/posts/hugo-customization/#custom-javascript -->
-{{ $autorender := resources.Get "js/latex-autorender.js" }}
-{{/* $js := slice $autorender | resources.Concat "js/bundle.js" | resources.Minify */}}
-{{/* $secureJS := $autorender | resources.Fingerprint "sha512" */}}
-{{ $secureJS := $autorender | resources.Fingerprint "sha512" }}
-<script type="text/javascript" src="{{ $secureJS.Permalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
-
 <link rel="stylesheet" href="{{ "katex/katex.min.css" | relURL }}" />
 <script defer src="{{ "katex/katex.min.js" | relURL }}"></script>
+<script defer src="{{ "katex/auto-render.min.js" | relURL }}"></script>
+
+{{/*
 <script defer src="{{ "katex/auto-render.min.js" | relURL }}" onload="renderMathInElement(document.body, {
   delimiters: [
       {left: '$$', right: '$$', display: true},
       {left: '$', right: '$', display: false},
     ],
  });"></script>
+*/}}
+
+<!-- https://rl.ai/posts/hugo-customization/#custom-javascript -->
+{{ $autorender := resources.Get "js/latex-autorender.js" }}
+{{/* $js := slice $autorender | resources.Concat "js/bundle.js" | resources.Minify */}}
+{{/* $secureJS := $autorender | resources.Fingerprint "sha512" */}}
+{{ $secureJS := $autorender | resources.Fingerprint "sha512" }}
+<script type="text/javascript" src="{{ $secureJS.Permalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
 
 
